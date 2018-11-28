@@ -1,5 +1,5 @@
 ---
-title: vagrant搭建centos7
+title: vagrant里搭建centos7
 date: 2018-11-28 10:29:17
 tags:
 ---
