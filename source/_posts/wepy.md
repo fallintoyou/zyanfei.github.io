@@ -39,7 +39,7 @@ wepy build --watch(watch参数可以实时监听文件修改后进行编译)
 
 ## 三、构建第一个hello world
 ### 1./src/pages目录下新建demo.wpy
-````javascript
+````html
 <!-- 对应demo.css start -->
 <style lang="less">
 .userinfo {
@@ -106,7 +106,7 @@ wepy build --watch(watch参数可以实时监听文件修改后进行编译)
 <!-- 对应demo.js end -->
 ````
 2.app.wpy配置路径
-````javascript
+````html
     pages: [
       'pages/index',
       'pages/demo',
