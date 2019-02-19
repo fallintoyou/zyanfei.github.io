@@ -3,13 +3,13 @@ title: 小程序WePY框架
 date: 2019-02-19 21:28:45
 tags:
 ---
->WePY是腾讯官方对vue.js再次封装的框架，对一些函数进行了二次改造例如promise,request,setData，不用写一些纷繁复杂的代码就可以进行开发。
+>WePY是腾讯官方对vue.js再次封装的框架，对小程序的一些内部方法进行了重构和改造，我们不用写一些纷繁复杂的代码就可以进行开发。
 优点：代码简易，上手后可以体会到mvvm架构的便捷性。
 缺点：需要一定的小程序开发基础和vue知识，客户端需要nodeJs环境，而且代码不能在小程序开发助手里写（小程序不支持打开wpy）,而是在后缀为wpy的文件里编写后生成对应的小程序语言。（这里后面会讲到）
 ## 一、WePY的搭建
 
 ### 1.npm的安装（如果有nodeJs环境则跳过这一步，用npm -v检测）
-Node.js 安装包及源码下载地址为：https://nodejs.org/en/download/。
+Node.js 安装包及源码下载地址为：https://nodejs.org/en/download/
 
 安装步骤：[Node.js安装配置](http://www.runoob.com/nodejs/nodejs-install-setup.html)
 
