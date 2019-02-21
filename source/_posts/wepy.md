@@ -112,6 +112,69 @@ wepy build --watch(watch参数可以实时监听文件修改后进行编译)
       'pages/demo',
     ],
 ````
+## 四、开发笔记
+### 1.wepy buid或者wepy build --watch后不断报错
+````bash
+  E:\wamp\www\demo\miniprogram-demo\src\pages\demo1.wpy
+  27:6    error  Expected space or tab after '//' in comment   spaced-comment
+  29:9    error  Expected indentation of 4 spaces but found 6  indent
+  30:9    error  Expected indentation of 4 spaces but found 6  indent
+  33:7    error  Expected indentation of 2 spaces but found 4  indent
+  34:7    error  Expected indentation of 6 spaces but found 4  indent
+  35:11   error  Expected indentation of 6 spaces but found 8  indent
+  37:3    error  Expected indentation of 4 spaces but found 0  indent
+  39:5    error  Expected space or tab after '//' in comment   spaced-comment
+  41:9    error  Expected indentation of 4 spaces but found 6  indent
+  42:31   error  Extra semicolon                               semi
+  43:27   error  Extra semicolon                               semi
+  47:5    error  Expected space or tab after '//' in comment   spaced-comment
+  49:23   error  Extra semicolon                               semi
+  50:107  error  Extra semicolon                               semi
+  54:23   error  Extra semicolon                               semi
+  57:5    error  Block must not be padded by blank lines       padded-blocks
 
+✖ 16 problems (16 errors, 0 warnings)              
+`````
+解决办法：关闭eslint（在/wepy.config.js里把eslint设置为false）。[什么是eslint？](https://cn.eslint.org/)
+### 2.interceptor 拦截器
+一般去监听每次请求，我们都会封装一个request方法，在方法体里请求前或者请求后打印出数据便于监听。interceptor是wepy提供的全局拦截器，我们可以利用它对api进行拦截。
 
+配置文件：/src/app.wpy
+````javascript
+  constructor () {
+    super()
+    this.use('requestfix')
+    this.use('promisify')
+    this.intercept('request', {
+            // 发出请求时的回调函数
+            config (p) {
+                // 对所有request请求中的OBJECT参数对象统一附加时间戳属性
+                // p.timestamp = +new Date();
+                console.log('config request: ', p);
+                // 必须返回OBJECT参数对象，否则无法发送请求到服务端
+                return p;
+              },
+
+            // 请求成功后的回调函数
+            success (p) {
+                // 可以在这里对收到的响应数据对象进行加工处理
+                console.log('request success: ', p);
+                // 必须返回响应数据对象，否则后续无法对响应数据进行处理
+                return p;
+              },
+
+            //请求失败后的回调函数
+            fail (p) {
+              console.log('request fail: ', p);
+                // 必须返回响应数据对象，否则后续无法对响应数据进行处理
+                return p;
+              },
+
+            // 请求完成时的回调函数(请求成功或失败都会被执行)
+            complete (p) {
+              console.log('request complete: ', p);
+            }
+          });
+  }
+````
 
