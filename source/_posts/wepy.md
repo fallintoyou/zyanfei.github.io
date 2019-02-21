@@ -18,6 +18,30 @@ npm isntall -g wepy-cli
 
 ### 3.创建项目
 wepy init standard my-project
+````bash
+Generate project in current directory? // 在当前目录中生成项目嘛?
+Y // 似滴
+
+A newer version of wepy-cli is available. // 如果出现，就是提醒你wepy-cli有新的版本可用
+
+Project name // 项目叫啥
+xxx
+
+Project description // 来讲一下你这个项目
+这是一个xxx小程序项目……&*%￥……#……%￥&*……&%#￥%#￥
+
+Author // 作者？
+姓名<邮箱>
+
+Use ESLint to lint your code? // 使用ESLint帮你检测代码？
+y // 来吧
+
+Use Redux in your project? // 使用Redux来处理状态管理？
+Y // 可以
+
+Use web transform feature in your project? // 在项目中使用Web转换功能？
+Y // 允了（虽然不知道是干啥的东西，但是看起来很厉害的样子，先加上再说）
+````
 
 ### 4.安装依赖+编译
 npm install
