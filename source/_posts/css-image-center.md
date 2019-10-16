@@ -12,7 +12,7 @@ tags:
       .demo1 img {width: 100%; }
 </style>
 <div class="demo1">
-  <img src="https://www.zhangyanfei.cn//intro/index-bg.jpg"/>
+  <img src="https://www.zhangyanfei.cn/intro/index-bg.jpg"/>
 </div>
 <div class="demo1">
   <img src="https://www.zhangyanfei.cn/avatar/Me.jpg"/>
@@ -38,7 +38,7 @@ tags:
      .demo3 img{width:100%;}
 </style>
 <div class="demo3">
-  <img src="https://www.zhangyanfei.cn//intro/index-bg.jpg"/>
+  <img src="https://www.zhangyanfei.cn/intro/index-bg.jpg"/>
 </div>
 <div class="demo3">
   <img src="https://www.zhangyanfei.cn/avatar/Me.jpg"/>
