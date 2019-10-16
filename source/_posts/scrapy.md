@@ -4,59 +4,58 @@ date: 2019-10-16 18:13:03
 tags:
 categories: python
 ---
-学习scrapy之前，你应该对python有所了解。对于了解Scrapy爬虫框架，可以阅读这部分文章
+Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。学习scrapy之前，你应该掌握python基本语法糖。对于了解Scrapy，可以阅读这部分文章
 [Scrapy入门教程](https://scrapy-chs.readthedocs.io/zh_CN/latest/intro/tutorial.html)
 [如何入门 Python 爬虫](https://www.zhihu.com/question/20899988)
 
-
-#### 整体架构
+## 一、了解scrapy运作方式
+#### scrapy流程图
 ![1.png](scrapy/1.png)
 
-##### 1.Scrapy数据流是由执行的核心引擎(engine)控制，流程是这样的：
+#### scrapy组件
+> Scrapy Engine(引擎): 负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。
 
-##### 2.引擎打开一个域名，蜘蛛处理这个域名，并让蜘蛛获取第一个爬取的URL。
+> Scheduler(调度器): 它负责接受引擎发送过来的Request请求，并按照一定的方式进行整理排列，入队，当引擎需要时，交还给引擎。
 
-##### 3.引擎从蜘蛛那获取第一个需要爬取的URL，然后作为请求在调度中进行调度。
+> Downloader（下载器）：负责下载Scrapy Engine(引擎)发送的所有Requests请求，并将其获取到的Responses交还给Scrapy Engine(引擎)，由引擎交给Spider来处理，
 
-##### 4.引擎从调度那获取接下来进行爬取的页面。
+> Spider（爬虫）：它负责处理所有Responses,从中分析提取数据，获取Item字段需要的数据，并将需要跟进的URL提交给引擎，再次进入Scheduler(调度器)，
 
-##### 5.调度将下一个爬取的URL返回给引擎，引擎将他们通过下载中间件发送到下载器。
+> Item Pipeline(管道)：它负责处理Spider中获取到的Item，并进行进行后期处理（详细分析、过滤、存储等）的地方.
 
-##### 6.当网页被下载器下载完成以后，响应内容通过下载中间件被发送到引擎。
+> Downloader Middlewares（下载中间件）：你可以当作是一个可以自定义扩展下载功能的组件。
 
-##### 7.引擎收到下载器的响应并将它通过蜘蛛中间件发送到蜘蛛进行处理。
+> Spider Middlewares（Spider中间件）：你可以理解为是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）
 
-##### 8.蜘蛛处理响应并返回爬取到的item，然后给引擎发送新的请求。
+#### scrapy数据流(Data flow)
 
-##### 9.引擎发送处理后的item到项目管道，然后把处理结果返回给调度器，调度器计划处理下一个请求抓取。
+* 1.引擎打开一个网站(open a domain)，找到处理该网站的Spider并向该spider请求第一个要爬取的URL(s)。
+* 2.引擎从Spider中获取到第一个要爬取的URL并在调度器(Scheduler)以Request调度。
+* 3.引擎向调度器请求下一个要爬取的URL。
+* 4.调度器返回下一个要爬取的URL给引擎，引擎将URL通过下载中间件(请求(request)方向)转发给下载器(Downloader)。
+* 5.一旦页面下载完毕，下载器生成一个该页面的Response，并将其通过下载中间件(返回(response)方向)发送给引擎。
+* 6.引擎从下载器中接收到Response并通过Spider中间件(输入方向)发送给Spider处理。
+* 7.Spider处理Response并返回爬取到的Item及(跟进的)新的Request给引擎。
+* 8.引擎将(Spider返回的)爬取到的Item给Item Pipeline，将(Spider返回的)Request给调度器。
+* 9.(从第二步)重复直到调度器中没有更多地request，引擎关闭该网站。
+引擎获取起始url并发起请求,将获取的响应内容返回给spider,
+在spider中进行数据的提取和下一个url的链接,
+数据交给item和pipeline进行处理,
+url继续发起请求,
 
-##### 10.系统重复2-9的操作，直到调度中没有请求，然后断开引擎与域之间的联系。
+编写spider
+制作 Scrapy 爬虫 一共需要4步：
 
+新建项目 (scrapy startproject xxx)：新建一个新的爬虫项目
+明确目标 （编写items.py）：明确你想要抓取的目标
+制作爬虫 （spiders/xxspider.py）：制作爬虫开始爬取网页
+存储内容 （pipelines.py）：设计管道存储爬取内容
 
-## 一、新建scrapy爬虫项目
-> scrapy startproject tutorial
-
-生成的目录如下
-![2.png](scrapy/2.png)
-
-#### tutorial/items.py【项目】
-保存爬取到的数据的容器；其使用方法和python字典类似， 并且提供了额外保护机制来避免拼写错误导致的未定义字段错误。
-类似在ORM中做的一样，可以通过创建一个 scrapy.Item 类， 并且定义类型为 scrapy.Field 的类属性来定义一个Item。
-
-#### tutorial/pipelines.py【管道】
-当页面被蜘蛛解析后，将被发送到项目管道，用户可以通过管道清洗数据或者插入到数据库中。
-
-#### tutorial/settings.py【设置】
-settings.py是Scrapy中比较重要的配置文件，里面可以设置的内容非常之多。比如在pipelines.py中编写了把数据保存到mysql数据的class，那么怎么样才能使得这个class执行呢？就可以在settings设置。还有包括像log日志，log路径等设置。
-
-#### tutorial/spider
-该目录下放置爬虫代码
-
-#### tutorial/middlewares.py【中间件】
-这块在很后面才会用到，先不介绍。
 
 ## 二、编写你的第一个爬虫
 以抓取某求职网站的php职位为例
+
+>scrapy startproject goodjobs
 
 ##### 1.items.py里定义数据容器：
 ```python
@@ -92,25 +91,20 @@ class Goodjobs(scrapy.spiders.Spider):
 
     def parse(self, response):
         for sel in response.xpath('//div[@class="SearchJobList"]'):
-	    #这里用的是xpath定位节点，也可以用css()去做。extract是返回数组list
+            #这里用的是xpath定位节点，也可以用css()去做。extract是返回数组list
             jobname = sel.xpath('ul//a/@title').extract()
 	    #调用数据容器，将渠道的jobname赋值给item。
             item = GoodjobsItem() 
             item['jobname'] = jobname
-	    #生成器返回item
+	    #yield生成器返回item迭代值，进行下一步next()操作
             yield item
 
         next_page_url = self.base_url + response.xpath('//div[@class="p_in"]//a[contains(text(),"下一页")]/@href').extract()[0]
 	#返回一个迭代器
         yield scrapy.Request(next_page_url,callback=self.parse)
 ```
-这里不容易理解的地方就是“yield”，我们通过 yield 来发起一个请求，并通过 callback 参数为这个请求添加回调函数，在请求完成之后会将响应作为参数传递给回调函数。
 
-scrapy框架会根据 yield 返回的实例类型来执行不同的操作，如果是 scrapy.Request 对象，scrapy框架会去获得该对象指向的链接并在请求完成后调用该对象的回调函数。
-
-如果是 scrapy.Item 对象，scrapy框架会将这个对象传递给 pipelines.py做进一步处理。
-
-##### 3.pipelines.py 将数据从管道导入到数据库
+##### 3.pipelines.py 管道保存数据
 ```python
 # -*- coding: utf-8 -*-
 
@@ -146,16 +140,23 @@ class GoodjobsPipeline(object):
         #关闭数据库连接
         self.connection.close()
 ```
-
-### 三、执行爬虫
 > scrapy crawl goodjobs
 
 [Demo For Goodjobs Spider](https://github.com/zyanfei/goodjobs_spider)
 
-#### 其他要注意的：
-Xpath:
-Xpath是Selectors选择器的一种，可以很方便的定位到你想要的元素。
-XPath的常用匹配规则，例如 / 代表选取直接子节点，// 代表选择所有子孙节点，. 代表选取当前节点，.. 代表选取当前节点的父节点，@ 则是加了属性的限定，选取匹配属性的特定节点。
+## 三、最后认识下Selectors选择器
+[文档看这里](https://scrapy-chs.readthedocs.io/zh_CN/1.0/topics/selectors.html)
+Scrapy Selectors内置XPath和 CSS Selector表达式机制
+
+Selector有四个基本的方法:
+
+xpath(): 传入xpath表达式，返回该表达式所对应的所有节点的selector list列表
+extract(): 序列化该节点为Unicode字符串并返回list
+css(): 传入CSS表达式，返回该表达式所对应的所有节点的selector list列表，语法同 BeautifulSoup4
+re(): 根据传入的正则表达式对数据进行提取，返回Unicode字符串list列表
+通过shell可以很方便的提取出需要的数据
+
+
 
 
 
