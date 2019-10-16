@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle:
+title: 彥
+subtitle: 做个俗人，贪财好色，一身正气。
 description:
 keywords:
-author: John Doe
-language: en
-timezone:
+author: ZhangYanFei
+language: zh-CN
+timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: / 
+url: http://yoursite.com 
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
