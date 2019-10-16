@@ -1,7 +1,7 @@
 ---
 title: vagrant里搭建centos7
 date: 2018-11-28 10:29:17
-tags:
+tags: Vagrant
 ---
 >vagrant是简便虚拟机操作的一个软件，而使用虚拟机有几个好处：
 >1、为了开发环境与生产环境一致（很多开发环境为windows而生产环境为linux），不至于出现在开发环境正常而移步到正式生产环境时出现各种问题，而vagrant通过共享文件，可以实现在主机（windows）下的IDE编写代码操作，直接在虚拟机（linux）中运行展示出效果。

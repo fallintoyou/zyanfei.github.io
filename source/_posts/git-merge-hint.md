@@ -1,7 +1,7 @@
 ---
 title: git merge报错hint:Waiting for your editor to close the file...
 date: 2019-02-23 10:17:52
-tags:
+tags: GIT
 ---
 >在使用git开发的过程中，难免会遇到git merge。用来在开发完成后保持和主分支的一致性(保持最新代码)，这样主分支merge你开发分支的时候就会减少不必要的冲突解决。
 但我遇到这样一个问题：在自己分支开发完成之后，merge主分支的时候报错：

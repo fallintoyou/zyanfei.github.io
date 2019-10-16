@@ -1,7 +1,7 @@
 ---
 title: css图片居中三种实现方式
 date: 2019-03-13 17:06:33
-tags:
+tags: CSS
 ---
 ![1.png](css-image-center/1.png)
 #### 1.利用table实现图片垂直居中

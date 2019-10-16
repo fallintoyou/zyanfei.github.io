@@ -2,6 +2,7 @@
 title: centos7.3搭建lnmp环境
 date: 2018-09-19 14:12:09
 tags:
+categories: Linux
 ---
 安装Mysql
 ---------
