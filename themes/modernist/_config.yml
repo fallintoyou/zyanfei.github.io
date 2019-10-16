@@ -1,8 +1,8 @@
 menu:
 #  Home: /
-  Archives: /archives
-  Reading: /reading
-  About: /about
+  归档: /archives
+#  Reading: /reading
+#  About: /about
 #  Guestbook: /about
 
 excerpt_link: Read More
