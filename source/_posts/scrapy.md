@@ -142,6 +142,9 @@ class GoodjobsPipeline(object):
 ```
 > scrapy crawl goodjobs
 
+##### 如图：
+![3.jpg](scrapy/3.jpg)
+
 [Demo For Goodjobs Spider](https://github.com/zyanfei/goodjobs_spider)
 
 ## 三、最后认识下Selectors选择器
