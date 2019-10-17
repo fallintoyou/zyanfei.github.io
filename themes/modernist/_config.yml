@@ -27,3 +27,7 @@ google_analytics: true
 baidu_tongji: true
 
 rss: /atom.xml
+
+# Livere评论系统
+Livere:
+livere_uid: MTAyMC80MTMyOS8xNzg3Ng
