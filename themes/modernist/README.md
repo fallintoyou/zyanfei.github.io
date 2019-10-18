@@ -45,8 +45,6 @@ blogrolls:
 
 fancybox: true
 
-duoshuo_shortname:
-
 google_analytics:
 rss:
 ```
@@ -57,13 +55,11 @@ rss:
 - **widgets** - Widgets displaying in sidebar
 - **blogrolls** - Blogrolls displaying in `blogroll` widget
 - **fancybox** - Enable [Fancybox]
-- **duoshuo_shortname** - [Duoshuo] ID
 - **google_analytics** - Google Analytics ID
 - **rss** - RSS subscription link (change if using Feedburner)
 
 [Hexo]: http://zespia.tw/hexo/
 [modernist theme]: http://github.com/heroicyang/hexo-theme-modernist
 [Demo the Theme]: http://ibruce.info
-[Duoshuo]: http://duoshuo.com
 [Fancybox]: http://fancyapps.com/fancybox
 [Busuanzi]: http://busuanzi.ibruce.info
