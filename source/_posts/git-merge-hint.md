@@ -11,7 +11,7 @@ error: There was a problem with the editor ''D:\Sublime Text\sublime_text.ext' -
 Not committing merge; use 'git commit' to complete the merge.
 ````
 问题复现一下，如下图。utf8分支作为我的开发分支，php54作为主分支。
-![1.jpg](git-merge-hint/1.jpg)
+![](git-merge-hint/1.jpg)
 由图可见merge php54分支的时候不但没合并成功，还多了一个new file。这个new file是别人在php54分支上开发的代码，这尼玛是什么鬼啊？
 
 git提示我们使用"git commit"去完成合并，Ps:在这里用git commit是没有问题的。只不过会多一次commit记录。
@@ -26,15 +26,15 @@ git reset --hard //回退版本
 ````bash
 vim ~/.gitconfig
 ````
-![2.jpg](git-merge-hint/2.jpg)
+![](git-merge-hint/2.jpg)
 这里的global core.editor路径可能有问题
 ````bash
 git config --global core.editor vim //设置vim为git默认编辑器
 git merge php54 //再次merge php54
 ````
-![3.jpg](git-merge-hint/3.jpg)
+![](git-merge-hint/3.jpg)
 AMAZING!!!
-![4.jpg](git-merge-hint/4.jpg)
+![](git-merge-hint/4.jpg)
 原来每次merge都会打开这个editor让你去填写记录名称，而报错只是找不到editor而已，恍然大悟。
 
 

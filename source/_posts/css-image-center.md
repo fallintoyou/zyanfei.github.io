@@ -3,7 +3,7 @@ title: css图片居中三种实现方式
 date: 2019-03-13 17:06:33
 tags: CSS
 ---
-![1.png](css-image-center/1.png)
+![](css-image-center/1.png)
 #### 1.利用table实现图片垂直居中
 利用table的方法是利用了table的垂直居中属性，代码如下：这里使用display: table;和display: table-cell;来模拟table，这种方法并不兼容IE6/IE7，IE67不支持display: table，如果你不需要支持IE67那就可以用缺点：当你设置了display: table;可能会改变你的原有布局。
 ```html

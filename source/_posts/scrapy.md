@@ -10,7 +10,7 @@ Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数�
 
 ## 一、了解scrapy运作方式
 #### scrapy流程图
-![1.png](scrapy/1.png)
+![](scrapy/1.png)
 
 #### scrapy组件
 > Scrapy Engine(引擎): 负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。
@@ -143,7 +143,7 @@ class GoodjobsPipeline(object):
 > scrapy crawl goodjobs
 
 ##### 如图：
-![3.jpg](scrapy/3.jpg)
+![](scrapy/2.jpg)
 
 [Demo For Goodjobs Spider](https://github.com/zyanfei/goodjobs_spider)
 
