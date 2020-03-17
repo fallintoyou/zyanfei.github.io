@@ -4,7 +4,7 @@
 
 # Site
 title: 彥
-subtitle: Doing is better than saying.
+subtitle: ZhangYanfei's Blog
 description:
 keywords:
 author: ZhangYanFei
@@ -84,7 +84,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: modernist
+theme: 3-hexo
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
