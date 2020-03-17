@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <title>scrapy爬取求职网站初探 | 彥</title>
+  <meta name="keywords" content>
+  <meta name="description" content="scrapy爬取求职网站初探 | 彥">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。学习scrapy之前，你应该掌握python基本语法糖。对于了解Scrapy，可以阅读这部分文章Scrapy入门教程如何入门 Python 爬虫 一、了解scrapy运作方式scrapy流程图 scrapy组件 Scrapy Engine(引擎): 负责Spider、ItemPipeline、Do">
+<meta property="og:type" content="article">
+<meta property="og:title" content="scrapy爬取求职网站初探">
+<meta property="og:url" content="http://yoursite.com/2019/10/16/scrapy/index.html">
+<meta property="og:site_name" content="彥">
+<meta property="og:description" content="Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。学习scrapy之前，你应该掌握python基本语法糖。对于了解Scrapy，可以阅读这部分文章Scrapy入门教程如何入门 Python 爬虫 一、了解scrapy运作方式scrapy流程图 scrapy组件 Scrapy Engine(引擎): 负责Spider、ItemPipeline、Do">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/10/16/scrapy/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/16/scrapy/2.jpg">
+<meta property="og:updated_time" content="2020-03-17T08:16:31.723Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="scrapy爬取求职网站初探">
+<meta name="twitter:description" content="Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。学习scrapy之前，你应该掌握python基本语法糖。对于了解Scrapy，可以阅读这部分文章Scrapy入门教程如何入门 Python 爬虫 一、了解scrapy运作方式scrapy流程图 scrapy组件 Scrapy Engine(引擎): 负责Spider、ItemPipeline、Do">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/16/scrapy/1.png">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1.0.1"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value>
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>ZhangYanFei</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/yelog" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="facebook" href="https://www.facebook.com/faker.tops" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-facebook"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+        <a title="instagram" href="https://www.facebook.com/faker.tops" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-instagram"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="reddit" href="https://www.reddit.com/user/yelog/" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-reddit"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="weibo" href="http://weibo.com/u/2307534817" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-weibo"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="jianshu" href="https://www.jianshu.com/u/ff56736de7cf" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-jianshu"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="zhihu" href="https://www.zhihu.com/people/jaytp/activities" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-zhihu"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+        <a title="oschina" href="https://my.oschina.net/yelog" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-oschina"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:jaytp@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=872336115&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="kugou" href="https://www.kugou.com/" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-kugou"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="neteasemusic" href="https://music.163.com/#/user/home?id=88151013" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-neteasemusic"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(6)</small></div></li>
+    
+        
+            
+            <li><div data-rel="Linux">Linux<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="python">python<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="小程序">小程序<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="6">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="Search..." />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color4">CSS</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">GIT</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Vagrant</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">JavaScript</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="Linux "
+           href="/2018/09/19/centos73-lnmp/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="centos7.3搭建lnmp环境">centos7.3搭建lnmp环境</span>
+            <span class="post-date" title="2018-09-19 14:12:09">2018/09/19</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/03/13/css-image-center/"
+           data-tag="CSS"
+           data-author="" >
+            <span class="post-title" title="css图片居中三种实现方式">css图片居中三种实现方式</span>
+            <span class="post-date" title="2019-03-13 17:06:33">2019/03/13</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/02/23/git-merge-hint/"
+           data-tag="GIT"
+           data-author="" >
+            <span class="post-title" title="git merge报错hint:Waiting for your editor to close the file...">git merge报错hint:Waiting for your editor to close the file...</span>
+            <span class="post-date" title="2019-02-23 10:17:52">2019/02/23</span>
+        </a>
+        
+        <a  class=""
+           href="/2018/11/28/vagrant/"
+           data-tag="Vagrant"
+           data-author="" >
+            <span class="post-title" title="vagrant里搭建centos7">vagrant里搭建centos7</span>
+            <span class="post-date" title="2018-11-28 10:29:17">2018/11/28</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/10/16/scrapy/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="scrapy爬取求职网站初探">scrapy爬取求职网站初探</span>
+            <span class="post-date" title="2019-10-16 18:13:03">2019/10/16</span>
+        </a>
+        
+        <a  class="小程序 "
+           href="/2019/02/19/wepy/"
+           data-tag="JavaScript"
+           data-author="" >
+            <span class="post-title" title="小程序WePY框架">小程序WePY框架</span>
+            <span class="post-date" title="2019-02-19 21:28:45">2019/02/19</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-scrapy" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">scrapy爬取求职网站初探</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="python">python</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-03-17 16:16:31'>2019-10-16 18:13</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、了解scrapy运作方式"><span class="toc-text">一、了解scrapy运作方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#scrapy流程图"><span class="toc-text">scrapy流程图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#scrapy组件"><span class="toc-text">scrapy组件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#scrapy数据流-Data-flow"><span class="toc-text">scrapy数据流(Data flow)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、编写你的第一个爬虫"><span class="toc-text">二、编写你的第一个爬虫</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-items-py里定义数据容器："><span class="toc-text">1.items.py里定义数据容器：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-爬虫goodjobs-py"><span class="toc-text">2.爬虫goodjobs.py:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-pipelines-py-管道保存数据"><span class="toc-text">3.pipelines.py 管道保存数据</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如图："><span class="toc-text">如图：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、最后认识下Selectors选择器"><span class="toc-text">三、最后认识下Selectors选择器</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。学习scrapy之前，你应该掌握python基本语法糖。对于了解Scrapy，可以阅读这部分文章<br><a href="https://scrapy-chs.readthedocs.io/zh_CN/latest/intro/tutorial.html" target="_blank" rel="noopener">Scrapy入门教程</a><br><a href="https://www.zhihu.com/question/20899988" target="_blank" rel="noopener">如何入门 Python 爬虫</a></p>
+<h2 id="一、了解scrapy运作方式"><a href="#一、了解scrapy运作方式" class="headerlink" title="一、了解scrapy运作方式"></a>一、了解scrapy运作方式</h2><h4 id="scrapy流程图"><a href="#scrapy流程图" class="headerlink" title="scrapy流程图"></a>scrapy流程图</h4><p><img src="/2019/10/16/scrapy/1.png" alt></p>
+<h4 id="scrapy组件"><a href="#scrapy组件" class="headerlink" title="scrapy组件"></a>scrapy组件</h4><blockquote>
+<p>Scrapy Engine(引擎): 负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。</p>
+</blockquote>
+<blockquote>
+<p>Scheduler(调度器): 它负责接受引擎发送过来的Request请求，并按照一定的方式进行整理排列，入队，当引擎需要时，交还给引擎。</p>
+</blockquote>
+<blockquote>
+<p>Downloader（下载器）：负责下载Scrapy Engine(引擎)发送的所有Requests请求，并将其获取到的Responses交还给Scrapy Engine(引擎)，由引擎交给Spider来处理，</p>
+</blockquote>
+<blockquote>
+<p>Spider（爬虫）：它负责处理所有Responses,从中分析提取数据，获取Item字段需要的数据，并将需要跟进的URL提交给引擎，再次进入Scheduler(调度器)，</p>
+</blockquote>
+<blockquote>
+<p>Item Pipeline(管道)：它负责处理Spider中获取到的Item，并进行进行后期处理（详细分析、过滤、存储等）的地方.</p>
+</blockquote>
+<blockquote>
+<p>Downloader Middlewares（下载中间件）：你可以当作是一个可以自定义扩展下载功能的组件。</p>
+</blockquote>
+<blockquote>
+<p>Spider Middlewares（Spider中间件）：你可以理解为是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）</p>
+</blockquote>
+<h4 id="scrapy数据流-Data-flow"><a href="#scrapy数据流-Data-flow" class="headerlink" title="scrapy数据流(Data flow)"></a>scrapy数据流(Data flow)</h4><ul>
+<li>1.引擎打开一个网站(open a domain)，找到处理该网站的Spider并向该spider请求第一个要爬取的URL(s)。</li>
+<li>2.引擎从Spider中获取到第一个要爬取的URL并在调度器(Scheduler)以Request调度。</li>
+<li>3.引擎向调度器请求下一个要爬取的URL。</li>
+<li>4.调度器返回下一个要爬取的URL给引擎，引擎将URL通过下载中间件(请求(request)方向)转发给下载器(Downloader)。</li>
+<li>5.一旦页面下载完毕，下载器生成一个该页面的Response，并将其通过下载中间件(返回(response)方向)发送给引擎。</li>
+<li>6.引擎从下载器中接收到Response并通过Spider中间件(输入方向)发送给Spider处理。</li>
+<li>7.Spider处理Response并返回爬取到的Item及(跟进的)新的Request给引擎。</li>
+<li>8.引擎将(Spider返回的)爬取到的Item给Item Pipeline，将(Spider返回的)Request给调度器。</li>
+<li>9.(从第二步)重复直到调度器中没有更多地request，引擎关闭该网站。<br>引擎获取起始url并发起请求,将获取的响应内容返回给spider,<br>在spider中进行数据的提取和下一个url的链接,<br>数据交给item和pipeline进行处理,<br>url继续发起请求,</li>
+</ul>
+<p>编写spider<br>制作 Scrapy 爬虫 一共需要4步：</p>
+<p>新建项目 (scrapy startproject xxx)：新建一个新的爬虫项目<br>明确目标 （编写items.py）：明确你想要抓取的目标<br>制作爬虫 （spiders/xxspider.py）：制作爬虫开始爬取网页<br>存储内容 （pipelines.py）：设计管道存储爬取内容</p>
+<h2 id="二、编写你的第一个爬虫"><a href="#二、编写你的第一个爬虫" class="headerlink" title="二、编写你的第一个爬虫"></a>二、编写你的第一个爬虫</h2><p>以抓取某求职网站的php职位为例</p>
+<blockquote>
+<p>scrapy startproject goodjobs</p>
+</blockquote>
+<h5 id="1-items-py里定义数据容器："><a href="#1-items-py里定义数据容器：" class="headerlink" title="1.items.py里定义数据容器："></a>1.items.py里定义数据容器：</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define here the models for your scraped items</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># See documentation in:</span></span><br><span class="line"><span class="comment"># https://docs.scrapy.org/en/latest/topics/items.html</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoodjobsItem</span><span class="params">(scrapy.Item)</span>:</span></span><br><span class="line">    <span class="comment"># define the fields for your item here like:</span></span><br><span class="line">    <span class="comment"># name = scrapy.Field()</span></span><br><span class="line">    jobname = scrapy.Field()</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-爬虫goodjobs-py"><a href="#2-爬虫goodjobs-py" class="headerlink" title="2.爬虫goodjobs.py:"></a>2.爬虫goodjobs.py:</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> goodjobs.items <span class="keyword">import</span> GoodjobsItem</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Goodjobs</span><span class="params">(scrapy.spiders.Spider)</span>:</span></span><br><span class="line">    <span class="comment">#scrapy名称</span></span><br><span class="line">    name = <span class="string">"goodjobs"</span></span><br><span class="line">    allowed_domains = [<span class="string">"goodjobs.cn"</span>]</span><br><span class="line">    base_url = <span class="string">'https://search.goodjobs.cn'</span></span><br><span class="line">    start_urls = [</span><br><span class="line">        <span class="string">"https://search.goodjobs.cn/index.php?keyword=php&amp;boxwp=c1043"</span></span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> sel <span class="keyword">in</span> response.xpath(<span class="string">'//div[@class="SearchJobList"]'</span>):</span><br><span class="line">            <span class="comment">#这里用的是xpath定位节点，也可以用css()去做。extract是返回数组list</span></span><br><span class="line">            jobname = sel.xpath(<span class="string">'ul//a/@title'</span>).extract()</span><br><span class="line">	    <span class="comment">#调用数据容器，将渠道的jobname赋值给item。</span></span><br><span class="line">            item = GoodjobsItem() </span><br><span class="line">            item[<span class="string">'jobname'</span>] = jobname</span><br><span class="line">	    <span class="comment">#yield生成器返回item迭代值，进行下一步next()操作</span></span><br><span class="line">            <span class="keyword">yield</span> item</span><br><span class="line"></span><br><span class="line">        next_page_url = self.base_url + response.xpath(<span class="string">'//div[@class="p_in"]//a[contains(text(),"下一页")]/@href'</span>).extract()[<span class="number">0</span>]</span><br><span class="line">	<span class="comment">#返回一个迭代器</span></span><br><span class="line">        <span class="keyword">yield</span> scrapy.Request(next_page_url,callback=self.parse)</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-pipelines-py-管道保存数据"><a href="#3-pipelines-py-管道保存数据" class="headerlink" title="3.pipelines.py 管道保存数据"></a>3.pipelines.py 管道保存数据</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define your item pipelines here</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Don't forget to add your pipeline to the ITEM_PIPELINES setting</span></span><br><span class="line"><span class="comment"># See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoodjobsPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment">#建立数据库连接</span></span><br><span class="line">        self.connection = pymysql.connect(host=<span class="string">'127.0.0.1'</span>, port=<span class="number">3306</span>, user=<span class="string">'root'</span>, password=<span class="string">'1234'</span>, db=<span class="string">'goodjobs'</span>,charset=<span class="string">'utf8'</span>)</span><br><span class="line">        <span class="comment">#创建操作游标</span></span><br><span class="line">        self.cursor = self.connection.cursor()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        <span class="comment">#定义sql语句</span></span><br><span class="line">        sql = <span class="string">"INSERT INTO `goodjobs`.`t_jobs` (`jobname`, `corpname`) VALUES ('"</span>+item[<span class="string">'jobname'</span>][<span class="number">0</span>]+<span class="string">"', '"</span>+item[<span class="string">'jobname'</span>][<span class="number">1</span>]+<span class="string">"');"</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">#执行sql语句</span></span><br><span class="line">        self.cursor.execute(sql)</span><br><span class="line">        <span class="comment">#保存修改</span></span><br><span class="line">        self.connection.commit()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__del__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment">#关闭操作游标</span></span><br><span class="line">        self.cursor.close()</span><br><span class="line">        <span class="comment">#关闭数据库连接</span></span><br><span class="line">        self.connection.close()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>scrapy crawl goodjobs</p>
+</blockquote>
+<h5 id="如图："><a href="#如图：" class="headerlink" title="如图："></a>如图：</h5><p><img src="/2019/10/16/scrapy/2.jpg" alt></p>
+<p><a href="https://github.com/zyanfei/goodjobs_spider" target="_blank" rel="noopener">Demo For Goodjobs Spider</a></p>
+<h2 id="三、最后认识下Selectors选择器"><a href="#三、最后认识下Selectors选择器" class="headerlink" title="三、最后认识下Selectors选择器"></a>三、最后认识下Selectors选择器</h2><p><a href="https://scrapy-chs.readthedocs.io/zh_CN/1.0/topics/selectors.html" target="_blank" rel="noopener">文档看这里</a><br>Scrapy Selectors内置XPath和 CSS Selector表达式机制</p>
+<p>Selector有四个基本的方法:</p>
+<p>xpath(): 传入xpath表达式，返回该表达式所对应的所有节点的selector list列表<br>extract(): 序列化该节点为Unicode字符串并返回list<br>css(): 传入CSS表达式，返回该表达式所对应的所有节点的selector list列表，语法同 BeautifulSoup4<br>re(): 根据传入的正则表达式对数据进行提取，返回Unicode字符串list列表<br>通过shell可以很方便的提取出需要的数据</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>scrapy爬取求职网站初探</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="ZhangYanFei">ZhangYanFei</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-10-16, 18:13:03</p>
+    <p><span class="copy-title">最后更新:</span>2020-03-17, 16:16:31</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/10/16/scrapy/" title="scrapy爬取求职网站初探">http://yoursite.com/2019/10/16/scrapy/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2016-2019 Yelog</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#CSS','#GIT','#Vagrant','#JavaScript',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
