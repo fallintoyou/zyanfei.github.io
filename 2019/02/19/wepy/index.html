@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <title>小程序WePY框架 | 彥</title>
+  <meta name="keywords" content=" JavaScript ">
+  <meta name="description" content="小程序WePY框架 | 彥">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。学习scrapy之前，你应该掌握python基本语法糖。对于了解Scrapy，可以阅读这部分文章Scrapy入门教程如何入门 Python 爬虫 一、了解scrapy运作方式scrapy流程图 scrapy组件 Scrapy Engine(引擎): 负责Spider、ItemPipeline、Do">
+<meta property="og:type" content="article">
+<meta property="og:title" content="scrapy爬取求职网站初探">
+<meta property="og:url" content="http://yoursite.com/2019/10/16/scrapy/index.html">
+<meta property="og:site_name" content="彥">
+<meta property="og:description" content="Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。学习scrapy之前，你应该掌握python基本语法糖。对于了解Scrapy，可以阅读这部分文章Scrapy入门教程如何入门 Python 爬虫 一、了解scrapy运作方式scrapy流程图 scrapy组件 Scrapy Engine(引擎): 负责Spider、ItemPipeline、Do">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/10/16/scrapy/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/16/scrapy/2.jpg">
+<meta property="og:updated_time" content="2020-03-17T08:16:31.723Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="scrapy爬取求职网站初探">
+<meta name="twitter:description" content="Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。学习scrapy之前，你应该掌握python基本语法糖。对于了解Scrapy，可以阅读这部分文章Scrapy入门教程如何入门 Python 爬虫 一、了解scrapy运作方式scrapy流程图 scrapy组件 Scrapy Engine(引擎): 负责Spider、ItemPipeline、Do">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/16/scrapy/1.png">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1.0.1"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value>
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>ZhangYanFei</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/zyanfei" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:342803793@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=34280793&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(6)</small></div></li>
+    
+        
+            
+            <li><div data-rel="Linux">Linux<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="python">python<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="小程序">小程序<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="6">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode === 13){return false;}">
+        <input id="local-search-input" class="search" type="text" placeholder="Search..." />
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color4">CSS</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">GIT</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color3">Vagrant</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color1">JavaScript</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="Linux "
+           href="/2018/09/19/centos73-lnmp/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="centos7.3搭建lnmp环境">centos7.3搭建lnmp环境</span>
+            <span class="post-date" title="2018-09-19 14:12:09">2018/09/19</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/03/13/css-image-center/"
+           data-tag="CSS"
+           data-author="" >
+            <span class="post-title" title="css图片居中三种实现方式">css图片居中三种实现方式</span>
+            <span class="post-date" title="2019-03-13 17:06:33">2019/03/13</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/02/23/git-merge-hint/"
+           data-tag="GIT"
+           data-author="" >
+            <span class="post-title" title="git merge报错hint:Waiting for your editor to close the file...">git merge报错hint:Waiting for your editor to close the file...</span>
+            <span class="post-date" title="2019-02-23 10:17:52">2019/02/23</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/10/16/scrapy/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="scrapy爬取求职网站初探">scrapy爬取求职网站初探</span>
+            <span class="post-date" title="2019-10-16 18:13:03">2019/10/16</span>
+        </a>
+        
+        <a  class=""
+           href="/2018/11/28/vagrant/"
+           data-tag="Vagrant"
+           data-author="" >
+            <span class="post-title" title="vagrant里搭建centos7">vagrant里搭建centos7</span>
+            <span class="post-date" title="2018-11-28 10:29:17">2018/11/28</span>
+        </a>
+        
+        <a  class="小程序 "
+           href="/2019/02/19/wepy/"
+           data-tag="JavaScript"
+           data-author="" >
+            <span class="post-title" title="小程序WePY框架">小程序WePY框架</span>
+            <span class="post-date" title="2019-02-19 21:28:45">2019/02/19</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-wepy" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">小程序WePY框架</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="小程序">小程序</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color1">JavaScript</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-03-17 16:16:31'>2019-02-19 21:28</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、WePY的搭建"><span class="toc-text">一、WePY的搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-npm的安装（如果有nodeJs环境则跳过这一步，用npm-v检测）"><span class="toc-text">1.npm的安装（如果有nodeJs环境则跳过这一步，用npm -v检测）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-利用npm-Nodejs-Package-Manager-全局安装wepy-cli"><span class="toc-text">2.利用npm(Nodejs Package Manager)全局安装wepy-cli</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-创建项目"><span class="toc-text">3.创建项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-安装依赖-编译"><span class="toc-text">4.安装依赖+编译</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、WePY项目的目录结构"><span class="toc-text">二、WePY项目的目录结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、构建第一个hello-world"><span class="toc-text">三、构建第一个hello world</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-src-pages目录下新建demo-wpy"><span class="toc-text">1./src/pages目录下新建demo.wpy</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、开发笔记"><span class="toc-text">四、开发笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-wepy-buid或者wepy-build-–watch后不断报错"><span class="toc-text">1.wepy buid或者wepy build –watch后不断报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-interceptor-拦截器"><span class="toc-text">2.interceptor 拦截器</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>WePY是腾讯官方对vue.js再次封装的框架，对小程序的一些内部方法进行了重构和改造，我们不用写一些纷繁复杂的代码就可以进行开发。<br>优点：代码简易，上手后可以体会到mvvm架构的便捷性。<br>缺点：需要一定的小程序开发基础和vue知识，客户端需要nodeJs环境，而且代码不能在小程序开发助手里写（小程序不支持打开wpy）,而是在后缀为wpy的文件里编写后生成对应的小程序语言。（这里后面会讲到）</p>
+</blockquote>
+<h2 id="一、WePY的搭建"><a href="#一、WePY的搭建" class="headerlink" title="一、WePY的搭建"></a>一、WePY的搭建</h2><h3 id="1-npm的安装（如果有nodeJs环境则跳过这一步，用npm-v检测）"><a href="#1-npm的安装（如果有nodeJs环境则跳过这一步，用npm-v检测）" class="headerlink" title="1.npm的安装（如果有nodeJs环境则跳过这一步，用npm -v检测）"></a>1.npm的安装（如果有nodeJs环境则跳过这一步，用npm -v检测）</h3><p>Node.js 安装包及源码下载地址为：<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">https://nodejs.org/en/download/</a></p>
+<p>安装步骤：<a href="http://www.runoob.com/nodejs/nodejs-install-setup.html" target="_blank" rel="noopener">Node.js安装配置</a></p>
+<h3 id="2-利用npm-Nodejs-Package-Manager-全局安装wepy-cli"><a href="#2-利用npm-Nodejs-Package-Manager-全局安装wepy-cli" class="headerlink" title="2.利用npm(Nodejs Package Manager)全局安装wepy-cli"></a>2.利用npm(Nodejs Package Manager)全局安装wepy-cli</h3><p>npm isntall -g wepy-cli</p>
+<h3 id="3-创建项目"><a href="#3-创建项目" class="headerlink" title="3.创建项目"></a>3.创建项目</h3><p>wepy init standard my-project</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Generate project <span class="keyword">in</span> current directory? // 在当前目录中生成项目嘛?</span><br><span class="line">Y // 似滴</span><br><span class="line"></span><br><span class="line">A newer version of wepy-cli is available. // 如果出现，就是提醒你wepy-cli有新的版本可用</span><br><span class="line"></span><br><span class="line">Project name // 项目叫啥</span><br><span class="line">xxx</span><br><span class="line"></span><br><span class="line">Project description // 来讲一下你这个项目</span><br><span class="line">这是一个xxx小程序项目……&amp;*%￥……<span class="comment">#……%￥&amp;*……&amp;%#￥%#￥</span></span><br><span class="line"></span><br><span class="line">Author // 作者？</span><br><span class="line">姓名&lt;邮箱&gt;</span><br><span class="line"></span><br><span class="line">Use ESLint to lint your code? // 使用ESLint帮你检测代码？</span><br><span class="line">y // 来吧</span><br><span class="line"></span><br><span class="line">Use Redux <span class="keyword">in</span> your project? // 使用Redux来处理状态管理？</span><br><span class="line">Y // 可以</span><br><span class="line"></span><br><span class="line">Use web transform feature <span class="keyword">in</span> your project? // 在项目中使用Web转换功能？</span><br><span class="line">Y // 允了（虽然不知道是干啥的东西，但是看起来很厉害的样子，先加上再说）</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-安装依赖-编译"><a href="#4-安装依赖-编译" class="headerlink" title="4.安装依赖+编译"></a>4.安装依赖+编译</h3><p>npm install<br>wepy build –watch(watch参数可以实时监听文件修改后进行编译)</p>
+<h2 id="二、WePY项目的目录结构"><a href="#二、WePY项目的目录结构" class="headerlink" title="二、WePY项目的目录结构"></a>二、WePY项目的目录结构</h2><p>├── dist                   微信开发者工具指定的目录（Wepy编译生成）<br>├── node_modules           依赖的包<br>├── src                    开发目录<br>|   ├── components         WePY组件目录<br>|   |   ├── com_a.wpy      可复用的WePY组件a<br>|   |   └── com_b.wpy      可复用的WePY组件b<br>|   ├── pages              WePY页面目录<br>|   |   ├── index.wpy      index页面（经build后，会在dist目录下的pages目录生成index.js、index.json、index.wxml和index.wxss文件）<br>|   |   └── other.wpy      other页面<br>|   └── app.wpy            小程序配置项（全局数据、样式、声明钩子等；经build后，会在dist目录下生成app.js、app.json和app.wxss文件）<br>└── package.json           项目的package配置</p>
+<h2 id="三、构建第一个hello-world"><a href="#三、构建第一个hello-world" class="headerlink" title="三、构建第一个hello world"></a>三、构建第一个hello world</h2><h3 id="1-src-pages目录下新建demo-wpy"><a href="#1-src-pages目录下新建demo-wpy" class="headerlink" title="1./src/pages目录下新建demo.wpy"></a>1./src/pages目录下新建demo.wpy</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 对应demo.css start --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">"less"</span>&gt;</span></span><br><span class="line">.userinfo &#123;</span><br><span class="line">  display: flex;</span><br><span class="line">  flex-direction: column;</span><br><span class="line">  align-items: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.userinfo-avatar &#123;</span><br><span class="line">  width: 80rpx;</span><br><span class="line">  height: 80rpx;</span><br><span class="line">  border-radius: 50%;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.userinfo-nickname &#123;</span><br><span class="line">  color: #aaa;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 对应demo.css end --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 对应demo.wxml start --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">view</span>&gt;</span>&#123;&#123;motto&#125;&#125;<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> @<span class="attr">tap</span>=<span class="string">"bindViewTap"</span>&gt;</span>click<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 对应demo.wxml end --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 对应demo.js start --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">  import wepy from 'wepy'</span><br><span class="line"></span><br><span class="line">  export default class Demo extends wepy.page &#123;</span><br><span class="line">     //可用于页面模板绑定的数据</span><br><span class="line">    data = &#123;</span><br><span class="line">        motto: 'Hello World',</span><br><span class="line">    &#125;;</span><br><span class="line">       //这里可以监听data的attr改动情况</span><br><span class="line">      watch = &#123;</span><br><span class="line">      motto (newValue, oldValue) &#123;</span><br><span class="line">          console.log(`num value: $&#123;oldValue&#125; -&gt; $&#123;newValue&#125;`)</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">    //事件处理函数(集中保存在methods对象中)</span><br><span class="line">    methods = &#123;</span><br><span class="line">        bindViewTap () &#123;</span><br><span class="line">          console.log('click');</span><br><span class="line">          this.motto = 'Hello I Can Change The World!';</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    //页面的生命周期函数</span><br><span class="line">    onLoad() &#123;</span><br><span class="line">      console.log('onLoad');</span><br><span class="line">      wepy.request('https://www.baidu.com').then((d) =&gt; console.log(d));</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    onShow() &#123;</span><br><span class="line">      console.log('onShow');</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 对应demo.js end --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2.app.wpy配置路径</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pages: [</span><br><span class="line">  'pages/index',</span><br><span class="line">  'pages/demo',</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、开发笔记"><a href="#四、开发笔记" class="headerlink" title="四、开发笔记"></a>四、开发笔记</h2><h3 id="1-wepy-buid或者wepy-build-–watch后不断报错"><a href="#1-wepy-buid或者wepy-build-–watch后不断报错" class="headerlink" title="1.wepy buid或者wepy build –watch后不断报错"></a>1.wepy buid或者wepy build –watch后不断报错</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">  E:\wamp\www\demo\miniprogram-demo\src\pages\demo1.wpy</span><br><span class="line">  27:6    error  Expected space or tab after <span class="string">'//'</span> <span class="keyword">in</span> comment   spaced-comment</span><br><span class="line">  29:9    error  Expected indentation of 4 spaces but found 6  indent</span><br><span class="line">  30:9    error  Expected indentation of 4 spaces but found 6  indent</span><br><span class="line">  33:7    error  Expected indentation of 2 spaces but found 4  indent</span><br><span class="line">  34:7    error  Expected indentation of 6 spaces but found 4  indent</span><br><span class="line">  35:11   error  Expected indentation of 6 spaces but found 8  indent</span><br><span class="line">  37:3    error  Expected indentation of 4 spaces but found 0  indent</span><br><span class="line">  39:5    error  Expected space or tab after <span class="string">'//'</span> <span class="keyword">in</span> comment   spaced-comment</span><br><span class="line">  41:9    error  Expected indentation of 4 spaces but found 6  indent</span><br><span class="line">  42:31   error  Extra semicolon                               semi</span><br><span class="line">  43:27   error  Extra semicolon                               semi</span><br><span class="line">  47:5    error  Expected space or tab after <span class="string">'//'</span> <span class="keyword">in</span> comment   spaced-comment</span><br><span class="line">  49:23   error  Extra semicolon                               semi</span><br><span class="line">  50:107  error  Extra semicolon                               semi</span><br><span class="line">  54:23   error  Extra semicolon                               semi</span><br><span class="line">  57:5    error  Block must not be padded by blank lines       padded-blocks</span><br><span class="line"></span><br><span class="line">✖ 16 problems (16 errors, 0 warnings)              </span><br><span class="line">`</span><br></pre></td></tr></table></figure>
+
+<p>解决办法：关闭eslint（在/wepy.config.js里把eslint设置为false）。<a href="https://cn.eslint.org/" target="_blank" rel="noopener">什么是eslint？</a></p>
+<h3 id="2-interceptor-拦截器"><a href="#2-interceptor-拦截器" class="headerlink" title="2.interceptor 拦截器"></a>2.interceptor 拦截器</h3><p>一般去监听每次请求，我们都会封装一个request方法，在方法体里请求前或者请求后打印出数据便于监听。interceptor是wepy提供的全局拦截器，我们可以利用它对api进行拦截。</p>
+<p>配置文件：/src/app.wpy</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constructor</span> () &#123;</span><br><span class="line">  <span class="keyword">super</span>()</span><br><span class="line">  <span class="keyword">this</span>.use(<span class="string">'requestfix'</span>)</span><br><span class="line">  <span class="keyword">this</span>.use(<span class="string">'promisify'</span>)</span><br><span class="line">  <span class="keyword">this</span>.intercept(<span class="string">'request'</span>, &#123;</span><br><span class="line">          <span class="comment">// 发出请求时的回调函数</span></span><br><span class="line">          config (p) &#123;</span><br><span class="line">              <span class="comment">// 对所有request请求中的OBJECT参数对象统一附加时间戳属性</span></span><br><span class="line">              <span class="comment">// p.timestamp = +new Date();</span></span><br><span class="line">              <span class="built_in">console</span>.log(<span class="string">'config request: '</span>, p);</span><br><span class="line">              <span class="comment">// 必须返回OBJECT参数对象，否则无法发送请求到服务端</span></span><br><span class="line">              <span class="keyword">return</span> p;</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">          <span class="comment">// 请求成功后的回调函数</span></span><br><span class="line">          success (p) &#123;</span><br><span class="line">              <span class="comment">// 可以在这里对收到的响应数据对象进行加工处理</span></span><br><span class="line">              <span class="built_in">console</span>.log(<span class="string">'request success: '</span>, p);</span><br><span class="line">              <span class="comment">// 必须返回响应数据对象，否则后续无法对响应数据进行处理</span></span><br><span class="line">              <span class="keyword">return</span> p;</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">          <span class="comment">//请求失败后的回调函数</span></span><br><span class="line">          fail (p) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'request fail: '</span>, p);</span><br><span class="line">              <span class="comment">// 必须返回响应数据对象，否则后续无法对响应数据进行处理</span></span><br><span class="line">              <span class="keyword">return</span> p;</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">          <span class="comment">// 请求完成时的回调函数(请求成功或失败都会被执行)</span></span><br><span class="line">          complete (p) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'request complete: '</span>, p);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>小程序WePY框架</p>
+    
+    <p><span class="copy-title">本文作者:</span><a  title="ZhangYanFei">ZhangYanFei</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-02-19, 21:28:45</p>
+    <p><span class="copy-title">最后更新:</span>2020-03-17, 16:16:31</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/02/19/wepy/" title="小程序WePY框架">http://yoursite.com/2019/02/19/wepy/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2016-2019 Yelog</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#CSS','#GIT','#Vagrant','#JavaScript',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
