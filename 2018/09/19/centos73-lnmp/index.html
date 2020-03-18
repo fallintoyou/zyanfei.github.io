@@ -158,7 +158,7 @@
     
         
             
-            <li><div data-rel="小程序">小程序<small>(1)</small></div>
+            <li><div data-rel="python">python<small>(1)</small></div>
                 
             </li>
             
@@ -166,7 +166,7 @@
     
         
             
-            <li><div data-rel="python">python<small>(1)</small></div>
+            <li><div data-rel="小程序">小程序<small>(1)</small></div>
                 
             </li>
             
@@ -180,10 +180,10 @@
     
     
     </div>
-    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+    <div></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="6">
-
+<input type="hidden" id="yelog_site_word_count" value="6.3k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -262,6 +262,14 @@
             <span class="post-date" title="2019-02-23 10:17:52">2019/02/23</span>
         </a>
         
+        <a  class="python "
+           href="/2019/10/16/scrapy/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="scrapy爬取求职网站初探">scrapy爬取求职网站初探</span>
+            <span class="post-date" title="2019-10-16 18:13:03">2019/10/16</span>
+        </a>
+        
         <a  class=""
            href="/2018/11/28/vagrant/"
            data-tag="Vagrant"
@@ -276,14 +284,6 @@
            data-author="" >
             <span class="post-title" title="小程序WePY框架">小程序WePY框架</span>
             <span class="post-date" title="2019-02-19 21:28:45">2019/02/19</span>
-        </a>
-        
-        <a  class="python "
-           href="/2019/10/16/scrapy/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="scrapy爬取求职网站初探">scrapy爬取求职网站初探</span>
-            <span class="post-date" title="2019-10-16 18:13:03">2019/10/16</span>
         </a>
         
     </nav>
@@ -321,6 +321,8 @@
     </div>
     <div class="article-meta">
         
+        <span>字数:402</span>
+        
         
         <span id="busuanzi_container_page_pv">
             阅读:<span id="busuanzi_value_page_pv">
@@ -333,6 +335,17 @@
             </span>
         </span>
         
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
         
     </div>
     
@@ -393,7 +406,7 @@
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>centos7.3搭建lnmp环境</p>
-    
+    <p><span class="copy-title">文章字数:</span><span class="post-count">402</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="ZhangYanFei">ZhangYanFei</a></p>
     <p><span class="copy-title">发布时间:</span>2018-09-19, 14:12:09</p>
     <p><span class="copy-title">最后更新:</span>2020-03-17, 16:16:31</p>
@@ -405,6 +418,27 @@
 
 
 
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '57c96b7163aedc54aed2',
+            clientSecret: '9194275d15a89bc2329877cbf6bc9b75c87ed8af',
+            repo: 'zyanfei.github.io',
+            owner: 'zyanfei',
+            admin: ['zyanfei'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
 
 
     
@@ -414,7 +448,7 @@
 
     </div>
     <div class="copyright">
-        <p class="footer-entry">©2016-2019 Yelog</p>
+        <p class="footer-entry">©2016-2020 ZhangYanFei</p>
 <p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
 
     </div>
