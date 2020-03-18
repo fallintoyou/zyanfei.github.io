@@ -26,7 +26,7 @@
 
 <link href="/css/style.css?v=1.0.1" rel="stylesheet">
 
-<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+<link href="/css/hl_theme/railscasts.css?v=1.0.1" rel="stylesheet">
 
 <link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
 <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -96,14 +96,6 @@
     
         
     
-        
-        <a title="weibo" href="https://weibo.com/u/5778613128" target="_blank">
-            
-                <svg class="iconfont-svg" aria-hidden="true">
-                    <use xlink:href="#icon-weibo"></use>
-                </svg>
-            
-        </a>
         
     
         
@@ -183,7 +175,7 @@
     <div></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="6">
-<input type="hidden" id="yelog_site_word_count" value="6.3k">
+<input type="hidden" id="yelog_site_word_count" value="6.4k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -262,20 +254,20 @@
             <span class="post-date" title="2019-02-23 10:17:52">2019/02/23</span>
         </a>
         
-        <a  class="python "
-           href="/2019/10/16/scrapy/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="scrapy爬取求职网站初探">scrapy爬取求职网站初探</span>
-            <span class="post-date" title="2019-10-16 18:13:03">2019/10/16</span>
-        </a>
-        
         <a  class=""
            href="/2018/11/28/vagrant/"
            data-tag="Vagrant"
            data-author="" >
             <span class="post-title" title="vagrant里搭建centos7">vagrant里搭建centos7</span>
             <span class="post-date" title="2018-11-28 10:29:17">2018/11/28</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/10/16/scrapy/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="scrapy爬取求职网站初探">scrapy爬取求职网站初探</span>
+            <span class="post-date" title="2019-10-16 18:13:03">2019/10/16</span>
         </a>
         
         <a  class="小程序 "
@@ -380,22 +372,156 @@
 <p>安装步骤：<a href="http://www.runoob.com/nodejs/nodejs-install-setup.html" target="_blank" rel="noopener">Node.js安装配置</a></p>
 <h3 id="2-利用npm-Nodejs-Package-Manager-全局安装wepy-cli"><a href="#2-利用npm-Nodejs-Package-Manager-全局安装wepy-cli" class="headerlink" title="2.利用npm(Nodejs Package Manager)全局安装wepy-cli"></a>2.利用npm(Nodejs Package Manager)全局安装wepy-cli</h3><p>npm isntall -g wepy-cli</p>
 <h3 id="3-创建项目"><a href="#3-创建项目" class="headerlink" title="3.创建项目"></a>3.创建项目</h3><p>wepy init standard my-project</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Generate project <span class="keyword">in</span> current directory? // 在当前目录中生成项目嘛?</span><br><span class="line">Y // 似滴</span><br><span class="line"></span><br><span class="line">A newer version of wepy-cli is available. // 如果出现，就是提醒你wepy-cli有新的版本可用</span><br><span class="line"></span><br><span class="line">Project name // 项目叫啥</span><br><span class="line">xxx</span><br><span class="line"></span><br><span class="line">Project description // 来讲一下你这个项目</span><br><span class="line">这是一个xxx小程序项目……&amp;*%￥……<span class="comment">#……%￥&amp;*……&amp;%#￥%#￥</span></span><br><span class="line"></span><br><span class="line">Author // 作者？</span><br><span class="line">姓名&lt;邮箱&gt;</span><br><span class="line"></span><br><span class="line">Use ESLint to lint your code? // 使用ESLint帮你检测代码？</span><br><span class="line">y // 来吧</span><br><span class="line"></span><br><span class="line">Use Redux <span class="keyword">in</span> your project? // 使用Redux来处理状态管理？</span><br><span class="line">Y // 可以</span><br><span class="line"></span><br><span class="line">Use web transform feature <span class="keyword">in</span> your project? // 在项目中使用Web转换功能？</span><br><span class="line">Y // 允了（虽然不知道是干啥的东西，但是看起来很厉害的样子，先加上再说）</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">Generate project in current directory? // 在当前目录中生成项目嘛?
+Y // 似滴
 
+A newer version of wepy-cli is available. // 如果出现，就是提醒你wepy-cli有新的版本可用
+
+Project name // 项目叫啥
+xxx
+
+Project description // 来讲一下你这个项目
+这是一个xxx小程序项目……&amp;*%￥……#……%￥&amp;*……&amp;%#￥%#￥
+
+Author // 作者？
+姓名&lt;邮箱&gt;
+
+Use ESLint to lint your code? // 使用ESLint帮你检测代码？
+y // 来吧
+
+Use Redux in your project? // 使用Redux来处理状态管理？
+Y // 可以
+
+Use web transform feature in your project? // 在项目中使用Web转换功能？
+Y // 允了（虽然不知道是干啥的东西，但是看起来很厉害的样子，先加上再说）</code></pre>
 <h3 id="4-安装依赖-编译"><a href="#4-安装依赖-编译" class="headerlink" title="4.安装依赖+编译"></a>4.安装依赖+编译</h3><p>npm install<br>wepy build –watch(watch参数可以实时监听文件修改后进行编译)</p>
 <h2 id="二、WePY项目的目录结构"><a href="#二、WePY项目的目录结构" class="headerlink" title="二、WePY项目的目录结构"></a>二、WePY项目的目录结构</h2><p>├── dist                   微信开发者工具指定的目录（Wepy编译生成）<br>├── node_modules           依赖的包<br>├── src                    开发目录<br>|   ├── components         WePY组件目录<br>|   |   ├── com_a.wpy      可复用的WePY组件a<br>|   |   └── com_b.wpy      可复用的WePY组件b<br>|   ├── pages              WePY页面目录<br>|   |   ├── index.wpy      index页面（经build后，会在dist目录下的pages目录生成index.js、index.json、index.wxml和index.wxss文件）<br>|   |   └── other.wpy      other页面<br>|   └── app.wpy            小程序配置项（全局数据、样式、声明钩子等；经build后，会在dist目录下生成app.js、app.json和app.wxss文件）<br>└── package.json           项目的package配置</p>
-<h2 id="三、构建第一个hello-world"><a href="#三、构建第一个hello-world" class="headerlink" title="三、构建第一个hello world"></a>三、构建第一个hello world</h2><h3 id="1-src-pages目录下新建demo-wpy"><a href="#1-src-pages目录下新建demo-wpy" class="headerlink" title="1./src/pages目录下新建demo.wpy"></a>1./src/pages目录下新建demo.wpy</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 对应demo.css start --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">"less"</span>&gt;</span></span><br><span class="line">.userinfo &#123;</span><br><span class="line">  display: flex;</span><br><span class="line">  flex-direction: column;</span><br><span class="line">  align-items: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.userinfo-avatar &#123;</span><br><span class="line">  width: 80rpx;</span><br><span class="line">  height: 80rpx;</span><br><span class="line">  border-radius: 50%;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.userinfo-nickname &#123;</span><br><span class="line">  color: #aaa;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 对应demo.css end --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 对应demo.wxml start --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">view</span>&gt;</span>&#123;&#123;motto&#125;&#125;<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> @<span class="attr">tap</span>=<span class="string">"bindViewTap"</span>&gt;</span>click<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 对应demo.wxml end --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 对应demo.js start --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">  import wepy from 'wepy'</span><br><span class="line"></span><br><span class="line">  export default class Demo extends wepy.page &#123;</span><br><span class="line">     //可用于页面模板绑定的数据</span><br><span class="line">    data = &#123;</span><br><span class="line">        motto: 'Hello World',</span><br><span class="line">    &#125;;</span><br><span class="line">       //这里可以监听data的attr改动情况</span><br><span class="line">      watch = &#123;</span><br><span class="line">      motto (newValue, oldValue) &#123;</span><br><span class="line">          console.log(`num value: $&#123;oldValue&#125; -&gt; $&#123;newValue&#125;`)</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">    //事件处理函数(集中保存在methods对象中)</span><br><span class="line">    methods = &#123;</span><br><span class="line">        bindViewTap () &#123;</span><br><span class="line">          console.log('click');</span><br><span class="line">          this.motto = 'Hello I Can Change The World!';</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    //页面的生命周期函数</span><br><span class="line">    onLoad() &#123;</span><br><span class="line">      console.log('onLoad');</span><br><span class="line">      wepy.request('https://www.baidu.com').then((d) =&gt; console.log(d));</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    onShow() &#123;</span><br><span class="line">      console.log('onShow');</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 对应demo.js end --&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="三、构建第一个hello-world"><a href="#三、构建第一个hello-world" class="headerlink" title="三、构建第一个hello world"></a>三、构建第一个hello world</h2><h3 id="1-src-pages目录下新建demo-wpy"><a href="#1-src-pages目录下新建demo-wpy" class="headerlink" title="1./src/pages目录下新建demo.wpy"></a>1./src/pages目录下新建demo.wpy</h3><pre><code class="html">&lt;!-- 对应demo.css start --&gt;
+&lt;style lang=&quot;less&quot;&gt;
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.userinfo-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+&lt;/style&gt;
+&lt;!-- 对应demo.css end --&gt;
+
+&lt;!-- 对应demo.wxml start --&gt;
+&lt;template&gt;
+&lt;view&gt;{{motto}}&lt;/view&gt;
+&lt;button @tap=&quot;bindViewTap&quot;&gt;click&lt;/button&gt;
+&lt;/template&gt;
+&lt;!-- 对应demo.wxml end --&gt;
+
+&lt;!-- 对应demo.js start --&gt;
+&lt;script&gt;
+  import wepy from &#39;wepy&#39;
+
+  export default class Demo extends wepy.page {
+     //可用于页面模板绑定的数据
+    data = {
+        motto: &#39;Hello World&#39;,
+    };
+       //这里可以监听data的attr改动情况
+      watch = {
+      motto (newValue, oldValue) {
+          console.log(`num value: ${oldValue} -&gt; ${newValue}`)
+      }
+  }
+
+    //事件处理函数(集中保存在methods对象中)
+    methods = {
+        bindViewTap () {
+          console.log(&#39;click&#39;);
+          this.motto = &#39;Hello I Can Change The World!&#39;;
+        }
+    };
+
+    //页面的生命周期函数
+    onLoad() {
+      console.log(&#39;onLoad&#39;);
+      wepy.request(&#39;https://www.baidu.com&#39;).then((d) =&gt; console.log(d));
+    };
+
+    onShow() {
+      console.log(&#39;onShow&#39;);
+    };
+
+    }
+&lt;/script&gt;
+&lt;!-- 对应demo.js end --&gt;</code></pre>
 <p>2.app.wpy配置路径</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pages: [</span><br><span class="line">  'pages/index',</span><br><span class="line">  'pages/demo',</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+<pre><code class="html">    pages: [
+      &#39;pages/index&#39;,
+      &#39;pages/demo&#39;,
+    ],</code></pre>
+<h2 id="四、开发笔记"><a href="#四、开发笔记" class="headerlink" title="四、开发笔记"></a>四、开发笔记</h2><h3 id="1-wepy-buid或者wepy-build-–watch后不断报错"><a href="#1-wepy-buid或者wepy-build-–watch后不断报错" class="headerlink" title="1.wepy buid或者wepy build –watch后不断报错"></a>1.wepy buid或者wepy build –watch后不断报错</h3><pre><code class="bash">  E:\wamp\www\demo\miniprogram-demo\src\pages\demo1.wpy
+  27:6    error  Expected space or tab after &#39;//&#39; in comment   spaced-comment
+  29:9    error  Expected indentation of 4 spaces but found 6  indent
+  30:9    error  Expected indentation of 4 spaces but found 6  indent
+  33:7    error  Expected indentation of 2 spaces but found 4  indent
+  34:7    error  Expected indentation of 6 spaces but found 4  indent
+  35:11   error  Expected indentation of 6 spaces but found 8  indent
+  37:3    error  Expected indentation of 4 spaces but found 0  indent
+  39:5    error  Expected space or tab after &#39;//&#39; in comment   spaced-comment
+  41:9    error  Expected indentation of 4 spaces but found 6  indent
+  42:31   error  Extra semicolon                               semi
+  43:27   error  Extra semicolon                               semi
+  47:5    error  Expected space or tab after &#39;//&#39; in comment   spaced-comment
+  49:23   error  Extra semicolon                               semi
+  50:107  error  Extra semicolon                               semi
+  54:23   error  Extra semicolon                               semi
+  57:5    error  Block must not be padded by blank lines       padded-blocks
 
-<h2 id="四、开发笔记"><a href="#四、开发笔记" class="headerlink" title="四、开发笔记"></a>四、开发笔记</h2><h3 id="1-wepy-buid或者wepy-build-–watch后不断报错"><a href="#1-wepy-buid或者wepy-build-–watch后不断报错" class="headerlink" title="1.wepy buid或者wepy build –watch后不断报错"></a>1.wepy buid或者wepy build –watch后不断报错</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">  E:\wamp\www\demo\miniprogram-demo\src\pages\demo1.wpy</span><br><span class="line">  27:6    error  Expected space or tab after <span class="string">'//'</span> <span class="keyword">in</span> comment   spaced-comment</span><br><span class="line">  29:9    error  Expected indentation of 4 spaces but found 6  indent</span><br><span class="line">  30:9    error  Expected indentation of 4 spaces but found 6  indent</span><br><span class="line">  33:7    error  Expected indentation of 2 spaces but found 4  indent</span><br><span class="line">  34:7    error  Expected indentation of 6 spaces but found 4  indent</span><br><span class="line">  35:11   error  Expected indentation of 6 spaces but found 8  indent</span><br><span class="line">  37:3    error  Expected indentation of 4 spaces but found 0  indent</span><br><span class="line">  39:5    error  Expected space or tab after <span class="string">'//'</span> <span class="keyword">in</span> comment   spaced-comment</span><br><span class="line">  41:9    error  Expected indentation of 4 spaces but found 6  indent</span><br><span class="line">  42:31   error  Extra semicolon                               semi</span><br><span class="line">  43:27   error  Extra semicolon                               semi</span><br><span class="line">  47:5    error  Expected space or tab after <span class="string">'//'</span> <span class="keyword">in</span> comment   spaced-comment</span><br><span class="line">  49:23   error  Extra semicolon                               semi</span><br><span class="line">  50:107  error  Extra semicolon                               semi</span><br><span class="line">  54:23   error  Extra semicolon                               semi</span><br><span class="line">  57:5    error  Block must not be padded by blank lines       padded-blocks</span><br><span class="line"></span><br><span class="line">✖ 16 problems (16 errors, 0 warnings)              </span><br><span class="line">`</span><br></pre></td></tr></table></figure>
-
+✖ 16 problems (16 errors, 0 warnings)              </code></pre>
 <p>解决办法：关闭eslint（在/wepy.config.js里把eslint设置为false）。<a href="https://cn.eslint.org/" target="_blank" rel="noopener">什么是eslint？</a></p>
 <h3 id="2-interceptor-拦截器"><a href="#2-interceptor-拦截器" class="headerlink" title="2.interceptor 拦截器"></a>2.interceptor 拦截器</h3><p>一般去监听每次请求，我们都会封装一个request方法，在方法体里请求前或者请求后打印出数据便于监听。interceptor是wepy提供的全局拦截器，我们可以利用它对api进行拦截。</p>
 <p>配置文件：/src/app.wpy</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constructor</span> () &#123;</span><br><span class="line">  <span class="keyword">super</span>()</span><br><span class="line">  <span class="keyword">this</span>.use(<span class="string">'requestfix'</span>)</span><br><span class="line">  <span class="keyword">this</span>.use(<span class="string">'promisify'</span>)</span><br><span class="line">  <span class="keyword">this</span>.intercept(<span class="string">'request'</span>, &#123;</span><br><span class="line">          <span class="comment">// 发出请求时的回调函数</span></span><br><span class="line">          config (p) &#123;</span><br><span class="line">              <span class="comment">// 对所有request请求中的OBJECT参数对象统一附加时间戳属性</span></span><br><span class="line">              <span class="comment">// p.timestamp = +new Date();</span></span><br><span class="line">              <span class="built_in">console</span>.log(<span class="string">'config request: '</span>, p);</span><br><span class="line">              <span class="comment">// 必须返回OBJECT参数对象，否则无法发送请求到服务端</span></span><br><span class="line">              <span class="keyword">return</span> p;</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">          <span class="comment">// 请求成功后的回调函数</span></span><br><span class="line">          success (p) &#123;</span><br><span class="line">              <span class="comment">// 可以在这里对收到的响应数据对象进行加工处理</span></span><br><span class="line">              <span class="built_in">console</span>.log(<span class="string">'request success: '</span>, p);</span><br><span class="line">              <span class="comment">// 必须返回响应数据对象，否则后续无法对响应数据进行处理</span></span><br><span class="line">              <span class="keyword">return</span> p;</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">          <span class="comment">//请求失败后的回调函数</span></span><br><span class="line">          fail (p) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'request fail: '</span>, p);</span><br><span class="line">              <span class="comment">// 必须返回响应数据对象，否则后续无法对响应数据进行处理</span></span><br><span class="line">              <span class="keyword">return</span> p;</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">          <span class="comment">// 请求完成时的回调函数(请求成功或失败都会被执行)</span></span><br><span class="line">          complete (p) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'request complete: '</span>, p);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">  constructor () {
+    super()
+    this.use(&#39;requestfix&#39;)
+    this.use(&#39;promisify&#39;)
+    this.intercept(&#39;request&#39;, {
+            // 发出请求时的回调函数
+            config (p) {
+                // 对所有request请求中的OBJECT参数对象统一附加时间戳属性
+                // p.timestamp = +new Date();
+                console.log(&#39;config request: &#39;, p);
+                // 必须返回OBJECT参数对象，否则无法发送请求到服务端
+                return p;
+              },
 
+            // 请求成功后的回调函数
+            success (p) {
+                // 可以在这里对收到的响应数据对象进行加工处理
+                console.log(&#39;request success: &#39;, p);
+                // 必须返回响应数据对象，否则后续无法对响应数据进行处理
+                return p;
+              },
+
+            //请求失败后的回调函数
+            fail (p) {
+              console.log(&#39;request fail: &#39;, p);
+                // 必须返回响应数据对象，否则后续无法对响应数据进行处理
+                return p;
+              },
+
+            // 请求完成时的回调函数(请求成功或失败都会被执行)
+            complete (p) {
+              console.log(&#39;request complete: &#39;, p);
+            }
+          });
+  }</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
@@ -452,8 +578,8 @@
 
     </div>
     <div class="copyright">
-        <p class="footer-entry">©2016-2020 ZhangYanFei</p>
-<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+        <!--<p class="footer-entry">©2016-2020 ZhangYanFei</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>-->
 
     </div>
     <div class="full-toc">
@@ -585,7 +711,7 @@
         border-right: 1px solid #C3CCD0;
         text-align: right;
         color: #AAA;
-        background-color: #fafafa;
+        background-color: ;
     }
     .pre-numbering.widther {
         width: 35px;

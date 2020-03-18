@@ -26,7 +26,7 @@
 
 <link href="/css/style.css?v=1.0.1" rel="stylesheet">
 
-<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+<link href="/css/hl_theme/railscasts.css?v=1.0.1" rel="stylesheet">
 
 <link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
 <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -96,14 +96,6 @@
     
         
     
-        
-        <a title="weibo" href="https://weibo.com/u/5778613128" target="_blank">
-            
-                <svg class="iconfont-svg" aria-hidden="true">
-                    <use xlink:href="#icon-weibo"></use>
-                </svg>
-            
-        </a>
         
     
         
@@ -183,7 +175,7 @@
     <div></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="6">
-<input type="hidden" id="yelog_site_word_count" value="6.3k">
+<input type="hidden" id="yelog_site_word_count" value="6.4k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -262,20 +254,20 @@
             <span class="post-date" title="2019-02-23 10:17:52">2019/02/23</span>
         </a>
         
-        <a  class="python "
-           href="/2019/10/16/scrapy/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="scrapy爬取求职网站初探">scrapy爬取求职网站初探</span>
-            <span class="post-date" title="2019-10-16 18:13:03">2019/10/16</span>
-        </a>
-        
         <a  class=""
            href="/2018/11/28/vagrant/"
            data-tag="Vagrant"
            data-author="" >
             <span class="post-title" title="vagrant里搭建centos7">vagrant里搭建centos7</span>
             <span class="post-date" title="2018-11-28 10:29:17">2018/11/28</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/10/16/scrapy/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="scrapy爬取求职网站初探">scrapy爬取求职网站初探</span>
+            <span class="post-date" title="2019-10-16 18:13:03">2019/10/16</span>
         </a>
         
         <a  class="小程序 "
@@ -321,7 +313,7 @@
     </div>
     <div class="article-meta">
         
-        <span>字数:466</span>
+        <span>字数:476</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -370,20 +362,19 @@
         <blockquote>
 <p>在使用git开发的过程中，难免会遇到git merge。用来在开发完成后保持和主分支的一致性(保持最新代码)，这样主分支merge你开发分支的时候就会减少不必要的冲突解决。<br>但我遇到这样一个问题：在自己分支开发完成之后，merge主分支的时候报错：</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hint: Waitiing <span class="keyword">for</span> your editor to close the file... <span class="string">'D:\Sublime Text\sublime_text.ext'</span> -w: D:\Sublime Text\sublime_text.exe  No such file or derectory</span><br><span class="line">error: There was a problem with the editor <span class="string">''</span>D:\Sublime Text\sublime_text.ext<span class="string">' -w'</span>.</span><br><span class="line">Not committing merge; use <span class="string">'git commit'</span> to complete the merge.</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">hint: Waitiing for your editor to close the file... &#39;D:\Sublime Text\sublime_text.ext&#39; -w: D:\Sublime Text\sublime_text.exe  No such file or derectory
+error: There was a problem with the editor &#39;&#39;D:\Sublime Text\sublime_text.ext&#39; -w&#39;.
+Not committing merge; use &#39;git commit&#39; to complete the merge.</code></pre>
 <p>问题复现一下，如下图。utf8分支作为我的开发分支，php54作为主分支。<br><img src="/2019/02/23/git-merge-hint/1.jpg" alt><br>由图可见merge php54分支的时候不但没合并成功，还多了一个new file。这个new file是别人在php54分支上开发的代码，这尼玛是什么鬼啊？</p>
 <p>git提示我们使用”git commit”去完成合并，Ps:在这里用git commit是没有问题的。只不过会多一次commit记录。</p>
 <p>但是你想想，如果我们在php54分支上再次merge utf8，又会出现这样的问题。(报错，并且多出utf8下开发的代码)，需要你手动commit。如果文件修改多了，这样反反复复commit操作，会导致你commit的文件里有存在冲突而没有修改的情况。</p>
 <p>这里执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard //回退版本</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">git reset --hard //回退版本</code></pre>
 <p>看了下D盘，确实没有Sublime Text目录，而是有Sublime Text3目录，可能是我装Sublime Text的时候卸载过，又重新装了新版的Sublime。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.gitconfig</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">vim ~/.gitconfig</code></pre>
 <p><img src="/2019/02/23/git-merge-hint/2.jpg" alt><br>这里的global core.editor路径可能有问题</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.editor vim //设置vim为git默认编辑器</span><br><span class="line">git merge php54 //再次merge php54</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">git config --global core.editor vim //设置vim为git默认编辑器
+git merge php54 //再次merge php54</code></pre>
 <p><img src="/2019/02/23/git-merge-hint/3.jpg" alt><br>AMAZING!!!<br><img src="/2019/02/23/git-merge-hint/4.jpg" alt><br>原来每次merge都会打开这个editor让你去填写记录名称，而报错只是找不到editor而已，恍然大悟。</p>
 
       
@@ -399,7 +390,7 @@
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>git merge报错hint:Waiting for your editor to close the file...</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">466</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">476</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="ZhangYanFei">ZhangYanFei</a></p>
     <p><span class="copy-title">发布时间:</span>2019-02-23, 10:17:52</p>
     <p><span class="copy-title">最后更新:</span>2020-03-17, 16:16:31</p>
@@ -441,8 +432,8 @@
 
     </div>
     <div class="copyright">
-        <p class="footer-entry">©2016-2020 ZhangYanFei</p>
-<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+        <!--<p class="footer-entry">©2016-2020 ZhangYanFei</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>-->
 
     </div>
     <div class="full-toc">
@@ -574,7 +565,7 @@
         border-right: 1px solid #C3CCD0;
         text-align: right;
         color: #AAA;
-        background-color: #fafafa;
+        background-color: ;
     }
     .pre-numbering.widther {
         width: 35px;

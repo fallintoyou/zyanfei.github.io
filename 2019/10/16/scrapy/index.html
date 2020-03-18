@@ -26,7 +26,7 @@
 
 <link href="/css/style.css?v=1.0.1" rel="stylesheet">
 
-<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+<link href="/css/hl_theme/railscasts.css?v=1.0.1" rel="stylesheet">
 
 <link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
 <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -96,14 +96,6 @@
     
         
     
-        
-        <a title="weibo" href="https://weibo.com/u/5778613128" target="_blank">
-            
-                <svg class="iconfont-svg" aria-hidden="true">
-                    <use xlink:href="#icon-weibo"></use>
-                </svg>
-            
-        </a>
         
     
         
@@ -183,7 +175,7 @@
     <div></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="6">
-<input type="hidden" id="yelog_site_word_count" value="6.3k">
+<input type="hidden" id="yelog_site_word_count" value="6.4k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -262,20 +254,20 @@
             <span class="post-date" title="2019-02-23 10:17:52">2019/02/23</span>
         </a>
         
-        <a  class="python "
-           href="/2019/10/16/scrapy/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="scrapy爬取求职网站初探">scrapy爬取求职网站初探</span>
-            <span class="post-date" title="2019-10-16 18:13:03">2019/10/16</span>
-        </a>
-        
         <a  class=""
            href="/2018/11/28/vagrant/"
            data-tag="Vagrant"
            data-author="" >
             <span class="post-title" title="vagrant里搭建centos7">vagrant里搭建centos7</span>
             <span class="post-date" title="2018-11-28 10:29:17">2018/11/28</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/10/16/scrapy/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="scrapy爬取求职网站初探">scrapy爬取求职网站初探</span>
+            <span class="post-date" title="2019-10-16 18:13:03">2019/10/16</span>
         </a>
         
         <a  class="小程序 "
@@ -321,7 +313,7 @@
     </div>
     <div class="article-meta">
         
-        <span>字数:1.3k</span>
+        <span>字数:1.4k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -407,12 +399,78 @@
 <blockquote>
 <p>scrapy startproject goodjobs</p>
 </blockquote>
-<h5 id="1-items-py里定义数据容器："><a href="#1-items-py里定义数据容器：" class="headerlink" title="1.items.py里定义数据容器："></a>1.items.py里定义数据容器：</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define here the models for your scraped items</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># See documentation in:</span></span><br><span class="line"><span class="comment"># https://docs.scrapy.org/en/latest/topics/items.html</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoodjobsItem</span><span class="params">(scrapy.Item)</span>:</span></span><br><span class="line">    <span class="comment"># define the fields for your item here like:</span></span><br><span class="line">    <span class="comment"># name = scrapy.Field()</span></span><br><span class="line">    jobname = scrapy.Field()</span><br></pre></td></tr></table></figure>
+<h5 id="1-items-py里定义数据容器："><a href="#1-items-py里定义数据容器：" class="headerlink" title="1.items.py里定义数据容器："></a>1.items.py里定义数据容器：</h5><pre><code class="python"># -*- coding: utf-8 -*-
 
-<h5 id="2-爬虫goodjobs-py"><a href="#2-爬虫goodjobs-py" class="headerlink" title="2.爬虫goodjobs.py:"></a>2.爬虫goodjobs.py:</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> goodjobs.items <span class="keyword">import</span> GoodjobsItem</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Goodjobs</span><span class="params">(scrapy.spiders.Spider)</span>:</span></span><br><span class="line">    <span class="comment">#scrapy名称</span></span><br><span class="line">    name = <span class="string">"goodjobs"</span></span><br><span class="line">    allowed_domains = [<span class="string">"goodjobs.cn"</span>]</span><br><span class="line">    base_url = <span class="string">'https://search.goodjobs.cn'</span></span><br><span class="line">    start_urls = [</span><br><span class="line">        <span class="string">"https://search.goodjobs.cn/index.php?keyword=php&amp;boxwp=c1043"</span></span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> sel <span class="keyword">in</span> response.xpath(<span class="string">'//div[@class="SearchJobList"]'</span>):</span><br><span class="line">            <span class="comment">#这里用的是xpath定位节点，也可以用css()去做。extract是返回数组list</span></span><br><span class="line">            jobname = sel.xpath(<span class="string">'ul//a/@title'</span>).extract()</span><br><span class="line">	    <span class="comment">#调用数据容器，将渠道的jobname赋值给item。</span></span><br><span class="line">            item = GoodjobsItem() </span><br><span class="line">            item[<span class="string">'jobname'</span>] = jobname</span><br><span class="line">	    <span class="comment">#yield生成器返回item迭代值，进行下一步next()操作</span></span><br><span class="line">            <span class="keyword">yield</span> item</span><br><span class="line"></span><br><span class="line">        next_page_url = self.base_url + response.xpath(<span class="string">'//div[@class="p_in"]//a[contains(text(),"下一页")]/@href'</span>).extract()[<span class="number">0</span>]</span><br><span class="line">	<span class="comment">#返回一个迭代器</span></span><br><span class="line">        <span class="keyword">yield</span> scrapy.Request(next_page_url,callback=self.parse)</span><br></pre></td></tr></table></figure>
+# Define here the models for your scraped items
+#
+# See documentation in:
+# https://docs.scrapy.org/en/latest/topics/items.html
 
-<h5 id="3-pipelines-py-管道保存数据"><a href="#3-pipelines-py-管道保存数据" class="headerlink" title="3.pipelines.py 管道保存数据"></a>3.pipelines.py 管道保存数据</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define your item pipelines here</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Don't forget to add your pipeline to the ITEM_PIPELINES setting</span></span><br><span class="line"><span class="comment"># See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoodjobsPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment">#建立数据库连接</span></span><br><span class="line">        self.connection = pymysql.connect(host=<span class="string">'127.0.0.1'</span>, port=<span class="number">3306</span>, user=<span class="string">'root'</span>, password=<span class="string">'1234'</span>, db=<span class="string">'goodjobs'</span>,charset=<span class="string">'utf8'</span>)</span><br><span class="line">        <span class="comment">#创建操作游标</span></span><br><span class="line">        self.cursor = self.connection.cursor()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        <span class="comment">#定义sql语句</span></span><br><span class="line">        sql = <span class="string">"INSERT INTO `goodjobs`.`t_jobs` (`jobname`, `corpname`) VALUES ('"</span>+item[<span class="string">'jobname'</span>][<span class="number">0</span>]+<span class="string">"', '"</span>+item[<span class="string">'jobname'</span>][<span class="number">1</span>]+<span class="string">"');"</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">#执行sql语句</span></span><br><span class="line">        self.cursor.execute(sql)</span><br><span class="line">        <span class="comment">#保存修改</span></span><br><span class="line">        self.connection.commit()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__del__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment">#关闭操作游标</span></span><br><span class="line">        self.cursor.close()</span><br><span class="line">        <span class="comment">#关闭数据库连接</span></span><br><span class="line">        self.connection.close()</span><br></pre></td></tr></table></figure>
+import scrapy
 
+
+class GoodjobsItem(scrapy.Item):
+    # define the fields for your item here like:
+    # name = scrapy.Field()
+    jobname = scrapy.Field()</code></pre>
+<h5 id="2-爬虫goodjobs-py"><a href="#2-爬虫goodjobs-py" class="headerlink" title="2.爬虫goodjobs.py:"></a>2.爬虫goodjobs.py:</h5><pre><code class="python">import scrapy
+from goodjobs.items import GoodjobsItem
+
+class Goodjobs(scrapy.spiders.Spider):
+    #scrapy名称
+    name = &quot;goodjobs&quot;
+    allowed_domains = [&quot;goodjobs.cn&quot;]
+    base_url = &#39;https://search.goodjobs.cn&#39;
+    start_urls = [
+        &quot;https://search.goodjobs.cn/index.php?keyword=php&amp;boxwp=c1043&quot;
+    ]
+
+    def parse(self, response):
+        for sel in response.xpath(&#39;//div[@class=&quot;SearchJobList&quot;]&#39;):
+            #这里用的是xpath定位节点，也可以用css()去做。extract是返回数组list
+            jobname = sel.xpath(&#39;ul//a/@title&#39;).extract()
+        #调用数据容器，将渠道的jobname赋值给item。
+            item = GoodjobsItem() 
+            item[&#39;jobname&#39;] = jobname
+        #yield生成器返回item迭代值，进行下一步next()操作
+            yield item
+
+        next_page_url = self.base_url + response.xpath(&#39;//div[@class=&quot;p_in&quot;]//a[contains(text(),&quot;下一页&quot;)]/@href&#39;).extract()[0]
+    #返回一个迭代器
+        yield scrapy.Request(next_page_url,callback=self.parse)</code></pre>
+<h5 id="3-pipelines-py-管道保存数据"><a href="#3-pipelines-py-管道保存数据" class="headerlink" title="3.pipelines.py 管道保存数据"></a>3.pipelines.py 管道保存数据</h5><pre><code class="python"># -*- coding: utf-8 -*-
+
+# Define your item pipelines here
+#
+# Don&#39;t forget to add your pipeline to the ITEM_PIPELINES setting
+# See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+
+
+import pymysql
+
+class GoodjobsPipeline(object):
+    def __init__(self):
+        #建立数据库连接
+        self.connection = pymysql.connect(host=&#39;127.0.0.1&#39;, port=3306, user=&#39;root&#39;, password=&#39;1234&#39;, db=&#39;goodjobs&#39;,charset=&#39;utf8&#39;)
+        #创建操作游标
+        self.cursor = self.connection.cursor()
+
+    def process_item(self, item, spider):
+        #定义sql语句
+        sql = &quot;INSERT INTO `goodjobs`.`t_jobs` (`jobname`, `corpname`) VALUES (&#39;&quot;+item[&#39;jobname&#39;][0]+&quot;&#39;, &#39;&quot;+item[&#39;jobname&#39;][1]+&quot;&#39;);&quot;
+
+        #执行sql语句
+        self.cursor.execute(sql)
+        #保存修改
+        self.connection.commit()
+
+        return item
+
+    def __del__(self):
+        #关闭操作游标
+        self.cursor.close()
+        #关闭数据库连接
+        self.connection.close()</code></pre>
 <blockquote>
 <p>scrapy crawl goodjobs</p>
 </blockquote>
@@ -435,7 +493,7 @@
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>scrapy爬取求职网站初探</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">1.3k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">1.4k</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="ZhangYanFei">ZhangYanFei</a></p>
     <p><span class="copy-title">发布时间:</span>2019-10-16, 18:13:03</p>
     <p><span class="copy-title">最后更新:</span>2020-03-17, 16:16:31</p>
@@ -477,8 +535,8 @@
 
     </div>
     <div class="copyright">
-        <p class="footer-entry">©2016-2020 ZhangYanFei</p>
-<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+        <!--<p class="footer-entry">©2016-2020 ZhangYanFei</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>-->
 
     </div>
     <div class="full-toc">
@@ -610,7 +668,7 @@
         border-right: 1px solid #C3CCD0;
         text-align: right;
         color: #AAA;
-        background-color: #fafafa;
+        background-color: ;
     }
     .pre-numbering.widther {
         width: 35px;
